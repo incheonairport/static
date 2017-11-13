@@ -69,6 +69,12 @@ $(function(){
 $(function(){
 
   // function
+  function isMobile(){
+    if(navigator.userAgent.indexOf('Mobile') != -1){
+      $('html').addClass('mobile');
+      $('select').addClass('mac-select');
+    }
+  }
   function tabAction(){
     var tabWidth = 0;
     var $tabWrap;
@@ -82,7 +88,11 @@ $(function(){
 
           tabWidth = 100 / Math.ceil( $(this).find('.tab-nav-list-item').length / 2 );
 
+<<<<<<< HEAD
           //console.log(tabWidth);
+=======
+          console.log(tabWidth);
+>>>>>>> 0a0f21e313dbff2d95b4604682a5c5b5dd84a0a2
 
           $(this).find('.tab-nav-list-item').css({
             width: tabWidth + '%'
@@ -135,6 +145,7 @@ $(function(){
   }
 
   // run
+  isMobile(); // PC and Mobile check
   tabAction();
 
 

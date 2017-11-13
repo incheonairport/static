@@ -6,6 +6,16 @@ $(function(){
       $('html').addClass('mobile');
     }
   }
+<<<<<<< HEAD
+=======
+  function isOS(){
+    if (navigator.userAgent.indexOf('Mac OS X') != -1) {
+      $('select').addClass("mac");
+    }
+  }
+
+
+>>>>>>> 0a0f21e313dbff2d95b4604682a5c5b5dd84a0a2
   function tabAction(){
     var tabWidth = 0;
     var $tabWrap;
@@ -81,12 +91,24 @@ $(function(){
     });
   }
 
+<<<<<<< HEAD
 
   // running
   isMobile(); // PC and Mobile check
   tabAction(); // tab.length width auto divide event
 });
 
+=======
+
+
+
+  // running
+  isMobile(); // PC and Mobile check
+  //isOS(); // OS check
+  tabAction(); // tab.length width auto divide event
+});
+
+>>>>>>> 0a0f21e313dbff2d95b4604682a5c5b5dd84a0a2
 $(document).ready(function(){
   function tableOperationEvent(){
     $("#viewhidden1").click(function() {
@@ -160,7 +182,11 @@ $(document).ready(function(){
       }
     });
   }
+<<<<<<< HEAD
   function LayerGnbEvent(){
+=======
+  function layerGnbEvent(){
+>>>>>>> 0a0f21e313dbff2d95b4604682a5c5b5dd84a0a2
     $('.layer-gnb-mobile-btn').on('click',function(){
       $('.header').animate({left:0},350);
       $('.mobile-header').addClass('active');
@@ -181,6 +207,7 @@ $(document).ready(function(){
       }
     });
   }
+<<<<<<< HEAD
 
 
   // ready function running
@@ -197,5 +224,18 @@ $(function(){
     window.close();
 
   });
+=======
+  function layerCloseEvent(){
+    $('.lp-close').on('click', function(e){
+      window.opener='Self';
+      window.close();
+      e.preventDefault();
+    });
+  }
+>>>>>>> 0a0f21e313dbff2d95b4604682a5c5b5dd84a0a2
 
+  // ready function running
+  tableOperationEvent(); // AP_DC_07_02.html train operation tab event
+  layerGnbEvent(); // [LP] Layer popup mobile header event
+  layerCloseEvent(); // [LP] Layer popup close event
 });
