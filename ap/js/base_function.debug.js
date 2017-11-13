@@ -88,11 +88,7 @@ $(function(){
 
           tabWidth = 100 / Math.ceil( $(this).find('.tab-nav-list-item').length / 2 );
 
-<<<<<<< HEAD
           //console.log(tabWidth);
-=======
-          console.log(tabWidth);
->>>>>>> 0a0f21e313dbff2d95b4604682a5c5b5dd84a0a2
 
           $(this).find('.tab-nav-list-item').css({
             width: tabWidth + '%'
