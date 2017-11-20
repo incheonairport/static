@@ -746,7 +746,7 @@ $(function(){
         boxmodelLinkBtn.addClass('exclusive');
       }
     });
-    
+
   }
 
   function boxmodelResize(){
