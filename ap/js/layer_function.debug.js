@@ -1,26 +1,26 @@
-var LayerPopup;
+/****************
+ * Common Class *
+ ****************/
 
-/**
- * VendorDevice Class
- */
-
-/**
- * LineTab Class
- */
-
-/**
- * SelectBox Class
- */
-
-/**
- * CalendarPopup Class
- */
-
-/**
- * showHide Class ?
- */
+var LayerPopup, CalendarPopup;
 
 $(function(){
+
+  /**
+   * VendorDevice Class
+   */
+
+  /**
+   * LineTab Class
+   */
+
+  /**
+   * SelectBox Class
+   */
+
+  /**
+   * showHide Class ?
+   */
 
   /**
    * LayerPopup Class
@@ -32,6 +32,7 @@ $(function(){
 
     this.openPopup = function( $popupName ){
 
+      $('html, body').addClass('open-layer');
       $layerWrap.addClass('on');
       $popupName.addClass('on');
 
@@ -39,6 +40,7 @@ $(function(){
 
     this.closePopup = function( $popupName ){
 
+      $('html, body').removeClass('open-layer');
       $layerWrap.removeClass('on');
       $popupName.removeClass('on');
 
@@ -51,11 +53,80 @@ $(function(){
 
     }
 
+  };
+
+  /**
+   * CalendarPopup Class
+   */
+
+  CalendarPopup = new function(){
+
+    // call jquery-ui api when loading
+    $('.timesetting-date-day').datepicker({
+      showMonthAfterYear : true,
+      showOtherMonths : true,
+      selectOtherMonths : true,
+
+      prevText : 'p',
+      nextText : 'n',
+      dayNames : ['월', '화', '수', '목', '금', '토', '일' ],
+      dayNamesMin : ['월', '화', '수', '목', '금', '토', '일' ],
+      dayNamesShort : ['월', '화', '수', '목', '금', '토', '일' ],
+      monthNames : ['. 1', '. 2', '. 3', '. 4', '. 5', '. 6', '. 7', '. 8', '. 9', '. 10', '. 11', '. 12']
+    });
+
+    this.showDatePicker = function(type){
+
+      $('.timesetting-date-day').datepicker(type);
+
+    }
 
   };
 
 });
 
+
+
+/********************
+ * Common Execution *
+ ********************/
+
+$(function(){
+
+  // date picker 열기
+  $('.timesetting-date-calendar').on('click', function(){
+
+    CalendarPopup.showDatePicker('show');
+
+  });
+
+});
+
+
+
+/***************
+ * Layer Class *
+ ***************/
+
+$(function(){
+
+
+
+});
+
+
+
+/*******************
+ * Layer Execution *
+ *******************/
+
+$(function(){
+
+
+
+});
+
+/*
 $(function(){
 
   // define
@@ -264,7 +335,7 @@ $(document).ready(function(){
 $(function(){
 
   // lnb show per page
-  $('.gnb-item').eq(p).find('.gnb-link').addClass('on');
+  //$('.gnb-item').eq(p).find('.gnb-link').addClass('on');
 
   // window close
   $('.back-to-home').on('click', function(){
@@ -274,3 +345,4 @@ $(function(){
   });
 
 });
+*/
