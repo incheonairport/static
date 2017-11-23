@@ -81,7 +81,12 @@ $(function(){
         tabWidth = 100 / $(this).find('.tab-nav-list-item').length;
 
         $(this).find('.tab-nav-list-item').css({
-          width: tabWidth + '%'
+          width: tabWidth + '%',
+          height: $tabWrap.height()
+        });
+
+        $(this).find('.tab-nav-list-link').css({
+          height: $tabWrap.height()
         });
 
       });
