@@ -85,9 +85,13 @@ $(function(){
           height: $tabWrap.height()
         });
 
-        $(this).find('.tab-nav-list-link').css({
-          height: $tabWrap.height()
-        });
+        if( !$(this).hasClass('sub') ){
+
+          $(this).find('.tab-nav-list-link').css({
+            height: $tabWrap.height()
+          });
+
+        }
 
       });
 
