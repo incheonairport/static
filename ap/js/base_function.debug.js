@@ -379,14 +379,6 @@ $(function(){
 
     });
 
-    $('.btn-type-tab').on('click', function(){
-
-      $(this).siblings('.btn-type-tab').removeClass('on');
-
-      $(this).addClass('on');
-
-    });
-
   })();
 
 });
