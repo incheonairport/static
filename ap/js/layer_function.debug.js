@@ -108,9 +108,7 @@ $(function(){
         $tabWrap.each(function() {
 
           calcTabWidth( $(this), '.tab-area-heading' );
-
           setTabWidth( $(this), '.tab-area-heading' );
-
           setTabPosition( $(this), '.tab-area-heading' );
 
         });
@@ -204,6 +202,7 @@ $(function(){
             showMonthAfterYear : true,
             showOtherMonths : true,
             selectOtherMonths : true,
+            dateFormat: "yy.mm.dd",
 
             prevText : 'p',
             nextText : 'n',
@@ -217,6 +216,7 @@ $(function(){
             showMonthAfterYear : true,
             showOtherMonths : true,
             selectOtherMonths : true,
+            dateFormat: "yy.mm.dd",
 
             prevText : 'p',
             nextText : 'n',
@@ -232,6 +232,7 @@ $(function(){
             showMonthAfterYear : true,
             showOtherMonths : true,
             selectOtherMonths : true,
+            dateFormat: "yy.mm.dd",
 
             prevText : 'p',
             nextText : 'n',
@@ -495,7 +496,7 @@ $(function(){
   // window close
   (function(){
 
-    $('.lp-close').on('click', function(){
+    $('.lp-close').on('click', function(e){
 
       e.preventDefault();
       window.close();
