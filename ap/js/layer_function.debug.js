@@ -30,12 +30,19 @@ $(function(){
           $('html').addClass('safari');
         }
 
-      }
-
-      if(ua.toLowerCase().indexOf('firefox') != -1){
+      } else if(ua.toLowerCase().indexOf('firefox') != -1){
         $('html').addClass('firefox');
-      }
 
+      } else if(ua.toLowerCase().indexOf('msie 9.0') != -1){
+        $('html').addClass('ie9');
+
+      } else if(ua.toLowerCase().indexOf('msie 10.0') != -1){
+        $('html').addClass('ie10');
+
+      } else if(ua.toLowerCase().indexOf('rv:11.0') != -1){
+        $('html').addClass('ie11');
+
+      }
     };
 
     var checkOS = function(){
@@ -499,11 +506,16 @@ $(function(){
     $('.lp-close').on('click', function(e){
 
       e.preventDefault();
-      window.close();
-      self.close();
-      window.opener = window.location.href;
-      self.close();
-      window.open('about:blank','_self').close();
+
+      if( $(this).parents('html').attr('class').indexOf('ie') != -1 ){
+        window.open('','_self').close()
+      } else {
+        window.close();
+        self.close();
+        window.opener = window.location.href;
+        self.close();
+        window.open('about:blank','_self').close();
+      }
 
     });
 
