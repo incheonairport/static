@@ -34,13 +34,13 @@ $(function(){
         $('html').addClass('firefox');
 
       } else if(ua.toLowerCase().indexOf('msie 9.0') != -1){
-        $('html').addClass('ie9');
+        $('html').addClass('ie ie9');
 
       } else if(ua.toLowerCase().indexOf('msie 10.0') != -1){
-        $('html').addClass('ie10');
+        $('html').addClass('ie ie10');
 
       } else if(ua.toLowerCase().indexOf('rv:11.0') != -1){
-        $('html').addClass('ie11');
+        $('html').addClass('ie ie11');
 
       }
     };
@@ -492,13 +492,39 @@ $(function(){
 
 });
 
-
-
 /*******************
  * Layer Execution *
  *******************/
 
 $(function(){
+
+  (function(){
+
+    var $html = $('html');
+    var lang = $html.attr('lang');
+
+
+    switch(lang){
+
+      case 'ko' :
+        $html.addClass('ko');
+        break;
+
+      case 'en' :
+        $html.addClass('en');
+        break;
+
+      case 'ch' :
+        $html.addClass('ch');
+        break;
+
+      case 'ja' :
+        $html.addClass('ja');
+        break;
+
+    }
+
+  })();
 
   // window close
   (function(){
@@ -518,6 +544,15 @@ $(function(){
       }
 
     });
+
+  })();
+
+  // header lnb index check
+  (function(){
+
+    var gnbLinkIndex = $('.gnb-link').index( $('.gnb-link.on') );
+
+    $('.header').addClass('sub' + gnbLinkIndex);
 
   })();
 
@@ -556,6 +591,82 @@ $(function(){
       var indexNum = $(this).index('.maglev-train-line-list-article-link');
 
       ShowHide.showHideContent(true, indexNum, $tableNode);
+
+    });
+
+  })();
+
+  // map scroll overflow div add
+  (function(){
+
+    $('.imgbox').wrap('<div class="imgbox-extend" />');
+
+  })();
+
+  // 공항지도 이벤트
+  (function(){
+
+    $('.search-map-box-level2').on('click', function (e) {
+      e.preventDefault();
+      $(this).addClass('on').parent().siblings().children().removeClass('on');
+    });
+
+    $('.search-map-box-level3').on('click', function (e) {
+      e.preventDefault();
+      $(this).addClass('on').parent().siblings().children().removeClass('on');
+    });
+
+    $('.search-map-control').data('open', true).on('click', function (e) {
+      e.preventDefault();
+
+      if( $(this).data().open ){
+        $('.search-map-clear').addClass('on');
+        $(this).data('open', false);
+      } else {
+        $('.search-map-clear').removeClass('on');
+        $(this).data('open', true);
+      }
+    });
+
+    $('.map-full-screen').data('full', false).on('click', function(){
+
+      if( !$(this).data().full ){
+
+        $(this).addClass('full-screen').attr('title', '전체화면 종료');
+
+        $('.header.airport-map').addClass('full-screen');
+
+        $('.contents').addClass('full-screen');
+
+        $('.inner-contents').addClass('full-screen');
+
+        $('.search-map-contents').addClass('full-screen');
+
+        $('.search-map-clear').addClass('full-screen on');
+        $('.search-map-control').data('open', false);
+
+        $(this).data('full', true);
+
+      } else {
+
+        $(this).removeClass('full-screen').attr('title', '전체화면');
+
+        $('.header.airport-map').removeClass('full-screen');
+
+        $('.contents').removeClass('full-screen');
+
+        $('.inner-contents').removeClass('full-screen');
+
+        $('.search-map-contents').removeClass('full-screen');
+
+        $('.search-map-clear').removeClass('full-screen on');
+        $('.search-map-control').data('open', true);
+
+        $(this).data('full', false);
+
+      }
+
+
 
     });
 
