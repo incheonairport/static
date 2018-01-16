@@ -503,8 +503,13 @@ $(function(){
         $('.header').append('<button type="button" class="gnb-mobile-btn btn-gnb"><span>주메뉴 열기</span></button>');
       }
 
+<<<<<<< HEAD
       if( $('.quick-toggle').length <= 0 ){
         $('.quick').append('<button type="button" class="quick-toggle"><span>퀵메뉴 열기</span></button>');
+=======
+      if( $('.gnb-mobile-btn.btn-quick').length <= 0 ){
+        $('.header').append('<button type="button" class="gnb-mobile-btn btn-quick"><span>퀵메뉴 열기</span></button>');
+>>>>>>> ef471c6eb39cb5b2900a3a3590cf8ebd4c02cb28
       }
 
       if( $('.gnb-mobile-btn-close').length <= 0){
@@ -1349,7 +1354,11 @@ $(function(){
 
   })();
 
+<<<<<<< HEAD
   // header set when resize/scroll
+=======
+  // header set when resize
+>>>>>>> ef471c6eb39cb5b2900a3a3590cf8ebd4c02cb28
   (function(){
 
     var prevScroll = 0;
@@ -1363,12 +1372,19 @@ $(function(){
       if( $(window).width() > 1200 ){
 
         HeaderGnb.pcHeaderInit();
+<<<<<<< HEAD
         $('body').removeClass('mobile-menu-on');
         $('.gnb').removeClass('mobile-on mobile-off');
 
         if( $(window).scrollTop() < 400 ){
 
           // when main
+=======
+        $('.gnb').removeClass('mobile-on');
+
+        if( $(window).scrollTop() < 400 ){
+
+>>>>>>> ef471c6eb39cb5b2900a3a3590cf8ebd4c02cb28
           if( $('section').hasClass('main-visual') && $('.top-popup').length > 0 ){
 
             $('html').addClass('main');
@@ -1396,7 +1412,10 @@ $(function(){
       } else {
 
         $('.gnb-depth1-link').attr('href', '#');
+<<<<<<< HEAD
         $('.header, .gnb').removeClass('fixed down').addClass('bg');
+=======
+>>>>>>> ef471c6eb39cb5b2900a3a3590cf8ebd4c02cb28
 
         HeaderGnb.mobileHeaderInit();
         $('.visual-text').removeClass('text-right text-left');
@@ -1413,7 +1432,11 @@ $(function(){
 
     }).resize();
 
+    $(window).on('resize', function(){
 
+      scrollHeight = $('body').height() - $(window).height();
+
+<<<<<<< HEAD
     $(window).on('scroll', function(e){
 
       var scrollAmount = ( $(this).scrollTop() / scrollHeight ) * 100;
@@ -1485,6 +1508,25 @@ $(function(){
       prevScroll = currentScroll;
 
     }).scroll();
+=======
+      if( $('html').hasClass('main') ){
+        if( $(window).width() > 1200 ){
+
+          if( $(window).scrollTop() < 400 ){
+
+            $('.header, .gnb').removeClass('fixed down bg');
+
+          }
+
+        } else {
+
+          $('.header, .gnb').removeClass('fixed down').addClass('bg');
+
+        }
+      }
+
+    }).resize();
+>>>>>>> ef471c6eb39cb5b2900a3a3590cf8ebd4c02cb28
 
   })();
 
@@ -1496,7 +1538,11 @@ $(function(){
       $('#fullpage').fullpage({
         scrollBar: true,
         scrollingSpeed: 1000,
+<<<<<<< HEAD
         responsiveWidth: 1025,
+=======
+        responsiveWidth: 1024,
+>>>>>>> ef471c6eb39cb5b2900a3a3590cf8ebd4c02cb28
         normalScrollElements: '.layer.system'
       });
 
@@ -1669,6 +1715,12 @@ $(function(){
 
     });
 
+    $('body').on('click', 'button.gnb-mobile-btn.btn-quick', function(e){
+
+      $('.quick').addClass('mobile-on');
+
+    });
+
     $('body').on('click', 'button.gnb-mobile-btn-close', function(e){
 
       $('.gnb').removeClass('mobile-on').addClass('mobile-off');
@@ -1709,6 +1761,85 @@ $(function(){
 
     });
 
+<<<<<<< HEAD
+=======
+
+
+    var prevScroll = 0;
+
+    $(window).on('scroll', function(e){
+
+      var scrollAmount = ( $(this).scrollTop() / scrollHeight ) * 100;
+      $('.scroll-amount').css({width : scrollAmount + '%'});
+      var currentScroll = $(this).scrollTop();
+
+      if( $(window).width() > 1200 ){
+
+        if( $('section').hasClass('main-visual') ){
+          if( $(this).scrollTop() >= 400 ){
+
+            $('.header, .gnb').addClass('fixed bg down');
+
+            $('.top-popup').removeClass('top-open').addClass('down');
+            $('.top-popup-toggle').data('open', false).removeClass('down');
+            $('.header').removeClass('top-open');
+            $('.gnb').removeClass('top-open');
+            $('.total-search').removeClass('top-open');
+            $('.quick').removeClass('top-open');
+
+            $('.total-search').addClass('down');
+
+          } else if( $(this).scrollTop() < 400 ){
+
+            if( $('.header-search-item').hasClass('on') ){
+
+              if( currentScroll < prevScroll ){
+                // up
+                $('.header, .gnb').removeClass('fixed down');
+              }
+
+            } else {
+              $('.header, .gnb').removeClass('fixed bg down');
+            }
+
+            $('.top-popup').removeClass('down');
+            $('.total-search').removeClass('down');
+
+          }
+
+        } else {
+
+          if( $(this).scrollTop() >= 400 ){
+
+            $('.header, .gnb').addClass('fixed down');
+
+            $('.top-popup').removeClass('top-open').addClass('down');
+            $('.top-popup-toggle').data('open', false).removeClass('down');
+            $('.header').removeClass('top-open');
+            $('.gnb').removeClass('top-open');
+            $('.total-search').removeClass('top-open');
+            $('.quick').removeClass('top-open');
+
+            $('.total-search').addClass('down');
+
+          } else if( $(this).scrollTop() < 400 ){
+
+            $('.header, .gnb').removeClass('fixed down');
+
+            $('.top-popup').removeClass('down');
+            $('.total-search').removeClass('down');
+
+          }
+
+        }
+
+      }
+
+      prevScroll = currentScroll;
+
+    }).scroll();
+
+>>>>>>> ef471c6eb39cb5b2900a3a3590cf8ebd4c02cb28
   })();
 
   // 상단 팝업 이빈트
@@ -1950,6 +2081,7 @@ $(function(){
 
   })();
 
+<<<<<<< HEAD
   //quick menu 이벤트
   (function(){
 
@@ -1981,6 +2113,8 @@ $(function(){
 
   })();
 
+=======
+>>>>>>> ef471c6eb39cb5b2900a3a3590cf8ebd4c02cb28
 });
 
 
