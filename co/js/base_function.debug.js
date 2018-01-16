@@ -204,6 +204,7 @@ $(function(){
             showMonthAfterYear : true,
             showOtherMonths : true,
             selectOtherMonths : true,
+            dateFormat: "yy.mm.dd",
 
             prevText : 'p',
             nextText : 'n',
@@ -217,6 +218,7 @@ $(function(){
             showMonthAfterYear : true,
             showOtherMonths : true,
             selectOtherMonths : true,
+            dateFormat: "yy.mm.dd",
 
             prevText : 'p',
             nextText : 'n',
@@ -232,6 +234,7 @@ $(function(){
             showMonthAfterYear : true,
             showOtherMonths : true,
             selectOtherMonths : true,
+            dateFormat: "yy.mm.dd",
 
             prevText : 'p',
             nextText : 'n',
@@ -395,7 +398,7 @@ $(function(){
  * Base Class *
  **************/
 
-var Index, HeaderGnb;
+var Index, HeaderGnb, MainVisual, BottomBanner;
 
 $(function(){
 
@@ -405,23 +408,9 @@ $(function(){
 
   Index = function(){
 
-    this.$mainSection = $('.full-page-content .section');
     this.$mainVisualItem = $('.main-visual-item');
-    this.$mainFullPageContent = $('.full-page-content');
     this.currentMainSectionIndex = 0;
     this.easingType = 'easeInOutExpo';
-
-    this.setCurrentMainSectionIndex = function(currentIndex){
-
-      this.currentMainSectionIndex = currentIndex;
-
-    };
-
-    this.getCurrentMainSectionIndex = function(){
-
-      return this.currentMainSectionIndex;
-
-    };
 
   };
 
@@ -429,55 +418,55 @@ $(function(){
    * HeaderGnb Class
    */
 
-  HeaderGnb = new function(){
-
-    Index.apply(this);
-
-    var $visualItem = this.$mainVisualItem;
-    var $mainSection = this.$mainSection;
-    var $fullPageContent = this.$mainFullPageContent;
-
-
-    var _initClass = function(){
-      $('.header, .gnb').addClass( $fullPageContent.find('.section').eq(0).data('gnb-color') );
-    };
-
-    var _setClassVisual = function(index){
-      //console.log('set visual index : ' + index);
-      $('.header').attr('class', 'header ' + $visualItem.eq(index).data('gnb-color') );
-      $('.gnb').attr('class', 'gnb ' + $visualItem.eq(index).data('gnb-color') );
-    };
-
-    var _setClassSection = function(index){
-      $('.header').attr('class', 'header ' + $mainSection.eq(index).data('gnb-color') );
-      $('.gnb').attr('class', 'gnb ' + $mainSection.eq(index).data('gnb-color') );
-      //console.log('set section index : ' + index);
-    };
-
-    this.setClass = function(setClassSectionIndex, setClassVisualIndex){
-
-      //console.log('section index : ' + setClassSectionIndex);
-      //console.log('visual index : ' + setClassVisualIndex);
-
-      this.setCurrentMainSectionIndex(setClassSectionIndex);
-
-      if( setClassSectionIndex == 0 ){
-
-        //console.log('set visual');
-        _setClassVisual(setClassVisualIndex);
-
-      } else {
-
-        //console.log('set section');
-        _setClassSection(setClassSectionIndex);
-
-      }
-
-    };
-
-    _initClass();
-
-  };
+  //HeaderGnb = new function(){
+  //
+  //  Index.apply(this);
+  //
+  //  var $visualItem = this.$mainVisualItem;
+  //  var $mainSection = this.$mainSection;
+  //  var $fullPageContent = this.$mainFullPageContent;
+  //
+  //
+  //  var _initClass = function(){
+  //    $('.header, .gnb').addClass( $fullPageContent.find('.section').eq(0).data('gnb-color') );
+  //  };
+  //
+  //  var _setClassVisual = function(index){
+  //    //console.log('set visual index : ' + index);
+  //    $('.header').attr('class', 'header ' + $visualItem.eq(index).data('gnb-color') );
+  //    $('.gnb').attr('class', 'gnb ' + $visualItem.eq(index).data('gnb-color') );
+  //  };
+  //
+  //  var _setClassSection = function(index){
+  //    $('.header').attr('class', 'header ' + $mainSection.eq(index).data('gnb-color') );
+  //    $('.gnb').attr('class', 'gnb ' + $mainSection.eq(index).data('gnb-color') );
+  //    //console.log('set section index : ' + index);
+  //  };
+  //
+  //  this.setClass = function(setClassSectionIndex, setClassVisualIndex){
+  //
+  //    //console.log('section index : ' + setClassSectionIndex);
+  //    //console.log('visual index : ' + setClassVisualIndex);
+  //
+  //    this.setCurrentMainSectionIndex(setClassSectionIndex);
+  //
+  //    if( setClassSectionIndex == 0 ){
+  //
+  //      //console.log('set visual');
+  //      _setClassVisual(setClassVisualIndex);
+  //
+  //    } else {
+  //
+  //      //console.log('set section');
+  //      _setClassSection(setClassSectionIndex);
+  //
+  //    }
+  //
+  //  };
+  //
+  //  _initClass();
+  //
+  //};
 
   /**
    * MainVisual Class
@@ -703,6 +692,111 @@ $(function(){
 
   };
 
+  /**
+   * BottomBanner Class
+   */
+
+  BottomBanner = new function(){
+
+    // private
+    var currentVisualIndex = 0;
+    var nextVisualIndex = 0;
+
+    var $visualItem = $('.main-banner-img-inner');
+    var easingType = this.easingType;
+
+    var $pageItem;
+
+    var timeID, timeID2;
+    var imageMovingTime = 1000;
+
+    // private
+    var _initPosition = function(){
+
+      $visualItem.hide().eq(0).show();
+
+    };
+
+    var _init = function(){
+
+      _initPosition();
+
+    };
+
+    var _setPlayButtonClass = function(status){
+      $('.main-visual-control-paging .play-button').attr('class', 'play-button').addClass(status);
+    };
+
+    // public
+    this.fade = function(){
+
+      if( nextVisualIndex >= $visualItem.length ){
+
+        nextVisualIndex = 0;
+
+      } else if( nextVisualIndex <= -1 ){
+
+        nextVisualIndex = $visualItem.length-1;
+
+      }
+
+      $visualItem.eq(currentVisualIndex).stop().fadeOut(imageMovingTime, easingType);
+      $visualItem.eq(nextVisualIndex).stop().fadeIn(imageMovingTime, easingType);
+
+      //$pageItem.find('.paging-link').removeClass('on');
+      //$pageItem.eq(nextVisualIndex).find('.paging-link').addClass('on');
+
+      currentVisualIndex = nextVisualIndex;
+
+    };
+
+    this.rollLeft = function(){
+
+      this.rollStop();
+
+      nextVisualIndex = currentVisualIndex + 1;
+      this.fade();
+
+    };
+
+    this.rollRight = function(){
+
+      this.rollStop();
+
+      nextVisualIndex = currentVisualIndex - 1;
+      this.fade();
+
+    };
+
+    this.rollStop = function(){
+
+      // stop rolling
+      clearInterval(timeID);
+
+      // stop time bar
+      clearInterval(timeID2);
+
+      _setPlayButtonClass('play');
+
+    };
+
+    this.checkAnimate = function(){
+
+      return this.$mainVisualItem.is(':animated');
+
+    };
+
+    this.getNextVisualIndex = function(){
+
+      return nextVisualIndex;
+
+    };
+
+    // running in constructor when loading
+    _init();
+
+  };
+
 });
 
 
@@ -738,8 +832,33 @@ $(function(){
 
   $('.gnb').append('<div class="scroll-amount"></div>');
 
+  (function(){
+
+    var $html = $('html');
+    var lang = $html.attr('lang');
 
 
+    switch(lang){
+
+      case 'ko' :
+        $html.addClass('ko');
+        break;
+
+      case 'en' :
+        $html.addClass('en');
+        break;
+
+      case 'ch' :
+        $html.addClass('ch');
+        break;
+
+      case 'ja' :
+        $html.addClass('ja');
+        break;
+
+    }
+
+  })();
 
   /**
    * event
@@ -852,6 +971,35 @@ $(function(){
 
     });
 
+    $('.main-visual-news-title.tab').on('click', function(){
+
+      var indexTab = $(this).index('.main-visual-news-title.tab');
+
+      $('.main-visual-news-title.tab').each(function(i){
+
+        if( i < indexTab ){
+          $('.main-visual-news-title.tab').eq(i).addClass('prev').removeClass('next on');
+        } else if(i > indexTab) {
+          $('.main-visual-news-title.tab').eq(i).addClass('next').removeClass('prev on');
+        } else {
+          $('.main-visual-news-title.tab').eq(i).addClass('on').removeClass('prev next');
+        }
+
+      });
+
+      $('.main-visual-news-txt.tab').removeClass('on');
+      $(this).next('.main-visual-news-txt.tab').addClass('on');
+
+    });
+
+    $('.main-banner-wrap .banner-btn.left').on('click', function(){
+      BottomBanner.rollRight();
+    });
+
+    $('.main-banner-wrap .banner-btn.right').on('click', function(){
+      BottomBanner.rollLeft();
+    });
+
   })();
 
   // LNB 이벤트
@@ -901,6 +1049,24 @@ $(function(){
 
       }
 
+    });
+
+  })();
+
+  // select box 이벤트
+  (function(){
+
+    $('.search-box-btn').on('click', function(){
+      if( $('div').hasClass('search-box-year-contents') ){
+        var index = $('#search-year.search-box-input-select option:selected').index();
+        var val = $('#search-year.search-box-input-select option:selected').text();
+
+        $('.search-box-year-contents').removeClass('on');
+        $('.search-box-year-contents').eq(index).addClass('on');
+      }
+
+      $('.sub-contents-heading2.change-heading .year').text( val );
+      $('.sub-contents-heading2.change-heading .number').text( $('.search-box-year-contents').eq(index).find('.table.vt-dark tr').length-1 );
     });
 
   })();
