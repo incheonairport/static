@@ -68,15 +68,15 @@ $(function(){
 
     var calcTabWidth = function( $currentTab, findClass ){
 
-      if ($('html').hasClass('mobile')) {
+      //if ($('html').hasClass('mobile')) {
 
-        tabWidth = 100 / Math.ceil( $currentTab.find(findClass).length / 2 );
+        //tabWidth = 100 / Math.ceil( $currentTab.find(findClass).length / 2 );
 
-      } else {
+      //} else {
 
         tabWidth = 100 / $currentTab.find(findClass).length;
 
-      }
+      //}
 
     };
 
@@ -164,6 +164,7 @@ $(function(){
   LayerPopup = new function(){
 
     var $layerWrap = $('.layer-wrap');
+    $('.layer').data('set', false);
 
     this.openPopup = function( $popupName ){
 
@@ -196,20 +197,24 @@ $(function(){
 
         var winHeightHalf = winHeight/2;
 
-        $('.layer.system').css({height:winHeightHalf});
-        $('.layer-article.systemico').css({height:(winHeightHalf - 160)});
+        $('.layer.system').each(function(){
+
+          $(this).css({height:winHeightHalf});
+          $(this).find('.systemico').css({height:(winHeightHalf - 160)});
+
+        });
 
       } else {
 
         $('.layer').each(function(){
 
-          if( $(this).height() >= winHeight ){
+          if( $(this).find('.layer-area').outerHeight() >= winHeight ){
 
             $(this).css({height:winHeight*0.96});
 
           } else {
 
-            $(this).attr('style', '');
+            $(this).css({height:'auto'});
 
           }
 
@@ -325,11 +330,33 @@ $(function(){
 
 
 
+
+
 /********************
  * Common Execution *
  ********************/
 
 $(function(){
+  //scroll tab
+
+
+  (function(){
+    //$('.local-list.tab-half').wrap('<div class="tab-scroll-x" />');
+
+    $(window).on('resize', function(){
+
+      if( $('.local').width() >= 858 ){
+
+        $('.local-list-item').css({width : ($('.local-list').width() / $('.local-list-item').length )});
+        $('.local-list').css({width : 'auto'});
+
+      } else {
+        $('.local-list-item').outerWidth(78);
+        $('.local-list').width( $('.local-list-item').outerWidth() * $('.local-list-item').length );
+
+      }
+    });
+  })();
 
   /**
    * 날짜 선택
@@ -427,6 +454,25 @@ $(function(){
     });
 
   })();
+  (function(){
+
+    $('.tab-area-heading').on('click', function(){
+
+      $(this).siblings('.tab-area-heading').removeClass('on').next('.tab-area-content').removeClass('on');
+
+      $(this).addClass('on').next('.tab-area-content').addClass('on')
+
+    });
+
+    $('.btn-type-tab').on('click', function(){
+
+      $(this).siblings('.btn-type-tab').removeClass('on');
+
+      $(this).addClass('on');
+
+    });
+
+  })();
 
   /**
    * 레이어 팝업
@@ -438,7 +484,17 @@ $(function(){
 
       LayerPopup.setPopupHeight();
 
-    }).resize();
+    });
+
+    $('body').on('click', function(){
+
+      if( $('.layer-wrap').hasClass('on') ){
+
+        LayerPopup.setPopupHeight();
+
+      }
+
+    });
 
   })();
 
@@ -465,9 +521,18 @@ $(function(){
       if(type=='on'){
         $('.header').animate({left:0},350);
         $('.mobile-header').addClass('active');
+        //$('body').on('scroll touchmove mousewheel', function(e){
+        //  event.preventDefault();
+        //  event.stopPropagation();
+        //  return false;
+        //});
+        $('body').addClass('scrollfix');
+
       } else {
         $('.header').animate({left: -100 + '%'},350);
         $('.mobile-header').removeClass('active');
+        $('body').removeClass('scrollfix');
+        //$('body').off('scroll touchmove mousewheel');
       }
 
     };
@@ -642,11 +707,13 @@ $(function(){
   })();
 
   // map scroll overflow div add
-  (function(){
+  //(function(){
+  //
+  //  $('.imgbox').wrap('<div class="imgbox-extend" />');
+  //
+  //})();
 
-    $('.imgbox').wrap('<div class="imgbox-extend" />');
 
-  })();
 
   // 공항지도 이벤트
   (function(){
@@ -673,13 +740,15 @@ $(function(){
       }
     });
 
+
+
     $('.map-full-screen').data('full', false).on('click', function(){
 
       if( !$(this).data().full ){
 
         $(this).addClass('full-screen').attr('title', '전체화면 종료');
 
-        $('.header.airport-map').addClass('full-screen');
+        $('.header.airport-services').addClass('full-screen');
 
         $('.contents').addClass('full-screen');
 
@@ -689,6 +758,7 @@ $(function(){
 
         $('.search-map-clear').addClass('full-screen on');
         $('.search-map-control').data('open', false);
+        $('.header').addClass('full-screen');
 
         $(this).data('full', true);
 
@@ -696,7 +766,7 @@ $(function(){
 
         $(this).removeClass('full-screen').attr('title', '전체화면');
 
-        $('.header.airport-map').removeClass('full-screen');
+        $('.header.airport-services').removeClass('full-screen');
 
         $('.contents').removeClass('full-screen');
 
@@ -706,6 +776,7 @@ $(function(){
 
         $('.search-map-clear').removeClass('full-screen on');
         $('.search-map-control').data('open', true);
+        $('.header').removeClass('full-screen');
 
         $(this).data('full', false);
 

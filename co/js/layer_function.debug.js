@@ -63,7 +63,8 @@ $(function(){
 
       if ($('html').hasClass('mobile')) {
 
-        tabWidth = 100 / Math.ceil( $currentTab.find(findClass).length / 2 );
+        //tabWidth = 100 / Math.ceil( $currentTab.find(findClass).length / 2 );
+        tabWidth = 100 / $currentTab.find(findClass).length;
 
       } else {
 
@@ -325,19 +326,19 @@ $(function(){
 
   (function(){
 
-    $('.select-link-default').on('click', function(){
-      SelectBox.toggleSelectList( $(this) );
+    $('.select-link-default').data('open', false).on('click', function(){
+
+      if( !$(this).data().open ){
+        SelectBox.toggleSelectList( $(this) );
+      } else {
+        SelectBox.hideList(e);
+      }
+
     });
 
     $('.select-list .select-list-link').on('click',function(){
 
       SelectBox.afterClickList( $(this) );
-
-    });
-
-    $(document).mouseup(function (e) {
-
-      SelectBox.hideList(e);
 
     });
 
